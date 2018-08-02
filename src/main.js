@@ -2,9 +2,13 @@
 // (runtime-only or standalone) has been set in webpack.base.conf with an alias.
 import Vue from 'vue'
 import App from './App'
+import axios from 'axios'
 import BootstrapVue from 'bootstrap-vue'
+import { store } from './store/store'
 
-Vue.use(BootstrapVue);
+axios.defaults.baseURL = this.$store.nodeURL
+
+Vue.use(BootstrapVue)
 
 Vue.config.productionTip = false
 
@@ -12,5 +16,6 @@ Vue.config.productionTip = false
 new Vue({
   el: '#app',
   components: { App },
+  store: store,
   template: '<App/>'
 })

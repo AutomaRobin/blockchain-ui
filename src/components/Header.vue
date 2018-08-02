@@ -19,13 +19,21 @@
             </li>
           </ul>
         </div>
+        <div class="col">
+          <p class="float-right">Your node: {{ yourNode }}</p>
+        </div>
       </div>
     </div>
 </template>
 
 <script>
 export default {
-  name: 'Header'
+  data () {
+    return {
+      yourNode: '',
+      confirmed: false
+    }
+  }
 }
 </script>
 
