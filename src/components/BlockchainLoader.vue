@@ -17,6 +17,7 @@
         <button class="btn btn-primary" @click="onLoadData">{{ view === 'chain' ? 'Load Blockchain' : 'Load Transactions' }}</button>
         <button v-if="view === 'chain' && walletVar" class="btn btn-success" @click="onMine">Mine Coins</button>
         <button class="btn btn-warning" @click="onResolve">Resolve Conflicts</button>
+        <button v-if="view" class="btn btn-link btn-sm" @click="emptyData">Close</button>
       </div>
     </div>
     <div class="row">
@@ -105,7 +106,12 @@ export default {
     }
   },
   methods: {
-    onMine: function () {
+    emptyData () {
+      this.blockchain = []
+      this.minedTransactions = []
+      this.openTransactions = []
+    },
+    onMine () {
       let vm = this
       axios.post('/mine')
         .then(function (response) {
@@ -119,7 +125,7 @@ export default {
           vm.$store.state.error = error.response.data.message
         })
     },
-    onResolve: function () {
+    onResolve () {
       let vm = this
       axios.post('/resolve-conflicts')
         .then(function (response) {
@@ -131,7 +137,7 @@ export default {
           vm.$store.state.error = error.response.data.message
         })
     },
-    onLoadData: function () {
+    onLoadData () {
       if (this.view === 'chain') {
         // Load blockchain data
         let vm = this
@@ -140,8 +146,6 @@ export default {
           .then(function (response) {
             vm.blockchain = response.data.chain
             vm.minedTransactions = response.data.mined_transactions
-            console.log(vm.blockchain)
-            console.log(vm.minedTransactions)
             vm.dataLoading = false
           })
           .catch(function (error) {

@@ -159,6 +159,10 @@ export default {
       'walletVar',
       'getFunds'
     ])
+  },
+  created () {
+    this.$store.state.success = null
+    this.$store.state.error = null
   }
 }
 </script>

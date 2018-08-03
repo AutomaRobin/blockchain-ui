@@ -5,12 +5,11 @@ Vue.use(Vuex)
 
 export const store = new Vuex.Store({
   state: {
-    nodeURL: '',
-    nodeURLConfirmed: false,
     wallet: null,
     success: null,
     error: null,
-    funds: 0
+    funds: 0,
+    componentActive: ''
   },
   getters: {
     successMessage: state => {
@@ -24,6 +23,9 @@ export const store = new Vuex.Store({
     },
     getFunds: state => {
       return state.funds.toFixed(2)
+    },
+    activeComponent: state => {
+      return state.componentActive
     }
   }
 })

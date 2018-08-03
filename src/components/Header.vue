@@ -9,33 +9,25 @@
         <div class="col">
           <ul class="nav nav-pills">
             <li class="nav-item">
-              <a class="nav-link active" href="/">Wallet &amp; Node</a>
+              <a class="nav-link" @click="setComponent('appWallet')" :class="{active: activeComponent === 'appWallet'}">Wallet &amp; Node</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="/network">Network</a>
+              <a class="nav-link" @click="setComponent('appNetwork')" :class="{active: activeComponent === 'appNetwork'}">Network</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="/chat">Chat</a>
+              <a class="nav-link" @click="setComponent('appChat')" :class="{active: activeComponent === 'appChat'}">Chat</a>
             </li>
           </ul>
         </div>
         <div class="col">
-          <p class="float-right" v-if="confirmed">Your node: {{ yourNode }}</p>
-          <div v-if="!confirmed">
-            <b-input-group prepend="Your node ID">
-              <b-form-input v-model="yourNode"></b-form-input>
-              <b-input-group-append>
-                <b-btn variant="info" @click="confirmNodeID">Submit</b-btn>
-              </b-input-group-append>
-            </b-input-group>
-            <small>Specify this before making use of the blockchain</small>
+          <p class="float-right" >Your node: {{ yourNode }}</p>
           </div>
         </div>
       </div>
-    </div>
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
 export default {
   data () {
     return {
@@ -43,22 +35,21 @@ export default {
       confirmed: false
     }
   },
-  methods: {
-    confirmNodeID () {
-      this.$store.state.nodeURL = 'http://' + this.yourNode
-      this.$store.state.nodeURLConfirmed = true
-      this.confirmed = true
-    }
+  computed: {
+    ...mapGetters([
+      'activeComponent'
+    ])
   },
-  created () {
-    if (this.$store.state.nodeURLConfirmed === true) {
-      this.yourNode = this.$store.state.nodeURL
-      this.confirmed = true
+  methods: {
+    setComponent (value) {
+      this.$store.state.componentActive = value
     }
   }
 }
 </script>
 
 <style scoped>
-
+  a {
+    cursor: pointer;
+  }
 </style>

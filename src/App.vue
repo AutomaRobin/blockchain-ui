@@ -3,7 +3,7 @@
     <app-header></app-header>
     <hr>
     <app-messages></app-messages>
-    <app-wallet></app-wallet>
+    <component :is="activeComponent"></component>
     <hr>
     <app-blockchain-loader></app-blockchain-loader>
   </div>
@@ -14,8 +14,12 @@ import Header from './components/Header'
 import BlockchainLoader from './components/BlockchainLoader'
 import Messages from './components/Messages'
 import Wallet from './components/Wallet'
+import Network from './components/Network'
+import Chat from './components/Chat'
 import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap-vue/dist/bootstrap-vue.css'
+
+import { mapGetters } from 'vuex'
 
 export default {
   name: 'App',
@@ -23,7 +27,14 @@ export default {
     appHeader: Header,
     appBlockchainLoader: BlockchainLoader,
     appMessages: Messages,
-    appWallet: Wallet
+    appWallet: Wallet,
+    appNetwork: Network,
+    appChat: Chat
+  },
+  computed: {
+    ...mapGetters([
+      'activeComponent'
+    ])
   }
 }
 </script>
