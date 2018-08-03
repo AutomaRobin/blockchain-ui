@@ -6,9 +6,8 @@ import axios from 'axios'
 import BootstrapVue from 'bootstrap-vue'
 import { store } from './store/store'
 
-axios.defaults.baseURL = this.$store.nodeURL
-
 Vue.use(BootstrapVue)
+axios.defaults.baseURL = 'http://localhost:5000'
 
 Vue.config.productionTip = false
 

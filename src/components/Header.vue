@@ -20,7 +20,16 @@
           </ul>
         </div>
         <div class="col">
-          <p class="float-right">Your node: {{ yourNode }}</p>
+          <p class="float-right" v-if="confirmed">Your node: {{ yourNode }}</p>
+          <div v-if="!confirmed">
+            <b-input-group prepend="Your node ID">
+              <b-form-input v-model="yourNode"></b-form-input>
+              <b-input-group-append>
+                <b-btn variant="info" @click="confirmNodeID">Submit</b-btn>
+              </b-input-group-append>
+            </b-input-group>
+            <small>Specify this before making use of the blockchain</small>
+          </div>
         </div>
       </div>
     </div>
@@ -32,6 +41,19 @@ export default {
     return {
       yourNode: '',
       confirmed: false
+    }
+  },
+  methods: {
+    confirmNodeID () {
+      this.$store.state.nodeURL = 'http://' + this.yourNode
+      this.$store.state.nodeURLConfirmed = true
+      this.confirmed = true
+    }
+  },
+  created () {
+    if (this.$store.state.nodeURLConfirmed === true) {
+      this.yourNode = this.$store.state.nodeURL
+      this.confirmed = true
     }
   }
 }

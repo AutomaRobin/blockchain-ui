@@ -15,7 +15,7 @@
     <div class="row my-3">
       <div class="col">
         <button class="btn btn-primary" @click="onLoadData">{{ view === 'chain' ? 'Load Blockchain' : 'Load Transactions' }}</button>
-        <button v-if="view === 'chain' && wallet" class="btn btn-success" @click="onMine">Mine Coins</button>
+        <button v-if="view === 'chain' && walletVar" class="btn btn-success" @click="onMine">Mine Coins</button>
         <button class="btn btn-warning" @click="onResolve">Resolve Conflicts</button>
       </div>
     </div>
@@ -77,6 +77,7 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
 /* eslint-disable handle-callback-err */
 import axios from 'axios'
 export default {
@@ -92,6 +93,9 @@ export default {
     }
   },
   computed: {
+    ...mapGetters([
+      'walletVar'
+    ]),
     loadedData: function () {
       if (this.view === 'chain') {
         return this.blockchain

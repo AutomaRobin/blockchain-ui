@@ -2,6 +2,9 @@
   <div class="container">
     <app-header></app-header>
     <hr>
+    <app-messages></app-messages>
+    <app-wallet></app-wallet>
+    <hr>
     <app-blockchain-loader></app-blockchain-loader>
   </div>
 </template>
@@ -9,6 +12,8 @@
 <script>
 import Header from './components/Header'
 import BlockchainLoader from './components/BlockchainLoader'
+import Messages from './components/Messages'
+import Wallet from './components/Wallet'
 import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap-vue/dist/bootstrap-vue.css'
 
@@ -16,7 +21,9 @@ export default {
   name: 'App',
   components: {
     appHeader: Header,
-    appBlockchainLoader: BlockchainLoader
+    appBlockchainLoader: BlockchainLoader,
+    appMessages: Messages,
+    appWallet: Wallet
   }
 }
 </script>
