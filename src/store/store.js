@@ -9,7 +9,8 @@ export const store = new Vuex.Store({
     nodeURLConfirmed: false,
     wallet: null,
     success: null,
-    error: null
+    error: null,
+    funds: 0
   },
   getters: {
     successMessage: state => {
@@ -20,6 +21,9 @@ export const store = new Vuex.Store({
     },
     walletVar: state => {
       return state.wallet
+    },
+    getFunds: state => {
+      return state.funds.toFixed(2)
     }
   }
 })

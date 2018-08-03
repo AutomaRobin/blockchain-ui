@@ -40,7 +40,7 @@
               <div class="card-body">
                 <p>Previous Hash: {{ data.previous_hash }}</p>
                 <div class="list-group">
-                  <div v-for="tx in minedTransactions" v-if="tx.block === data.index" :key="tx" class="list-group-item flex-column align-items-start">
+                  <div v-for="tx in minedTransactions" v-if="tx.block == data.index" :key="tx" class="list-group-item flex-column align-items-start">
                     <div>Sender: {{ tx.sender }}</div>
                     <br>
                     <div>Recipient: {{ tx.recipient }}</div>
@@ -109,26 +109,26 @@ export default {
       let vm = this
       axios.post('/mine')
         .then(function (response) {
-          vm.error = null
-          vm.success = response.data.message
+          vm.$store.state.error = null
+          vm.$store.state.success = response.data.message
           console.log(response.data)
-          vm.funds = response.data.funds
+          vm.$store.state.funds = response.data.funds
         })
         .catch(function (error) {
-          vm.success = null
-          vm.error = error.response.data.message
+          vm.$store.state.success = null
+          vm.$store.state.error = error.response.data.message
         })
     },
     onResolve: function () {
       let vm = this
       axios.post('/resolve-conflicts')
         .then(function (response) {
-          vm.error = null
-          vm.success = response.data.message
+          vm.$store.state.error = null
+          vm.$store.state.success = response.data.message
         })
         .catch(function (error) {
-          vm.success = null
-          vm.error = error.response.data.message
+          vm.$store.state.success = null
+          vm.$store.state.error = error.response.data.message
         })
     },
     onLoadData: function () {
@@ -146,7 +146,7 @@ export default {
           })
           .catch(function (error) {
             vm.dataLoading = false
-            vm.error = 'Something went wrong.'
+            vm.$store.state.error = 'Something went wrong.'
           })
       } else {
         // Load transaction data
@@ -158,7 +158,7 @@ export default {
           })
           .catch(function (error) {
             vm.dataLoading = false
-            vm.error = 'Something went wrong.'
+            vm.$store.state.error = 'Something went wrong.'
           })
       }
     }

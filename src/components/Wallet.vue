@@ -26,7 +26,7 @@
           </div>
         </div>
         <div class="col text-right">
-          <h2>Funds: {{ funds.toFixed(2) }}</h2>
+          <h2>Funds: {{ getFunds }}</h2>
         </div>
       </div>
       <hr>
@@ -72,7 +72,6 @@ export default {
       inputPrivateKey: false,
       privateKey: '',
       createdWallet: false,
-      funds: 0,
       outgoingTx: {
         recipient: '',
         amount: 0
@@ -95,7 +94,7 @@ export default {
             public_key: response.data.public_key,
             private_key: response.data.private_key
           }
-          vm.funds = response.data.funds
+          vm.$store.state.funds = response.data.funds
           vm.walletLoading = false
         })
         .catch(function (error) {
@@ -122,7 +121,7 @@ export default {
             public_key: response.data.public_key,
             private_key: response.data.private_key
           }
-          vm.funds = response.data.funds
+          vm.$store.state.funds = response.data.funds
           vm.walletLoading = false
         })
         .catch(function (error) {
@@ -145,7 +144,7 @@ export default {
           vm.$store.state.error = null
           vm.$store.state.success = response.data.message
           console.log(response.data)
-          vm.funds = response.data.funds
+          vm.$store.state.funds = response.data.funds
           vm.txLoading = false
         })
         .catch(function (error) {
@@ -157,7 +156,8 @@ export default {
   },
   computed: {
     ...mapGetters([
-      'walletVar'
+      'walletVar',
+      'getFunds'
     ])
   }
 }
